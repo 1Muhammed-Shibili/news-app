@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:news_app/screens/HomeScreen/Widget/newstile.dart';
 import 'package:news_app/screens/HomeScreen/Widget/trendingCard.dart';
+import 'package:news_app/screens/NewsDetails/news_details.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,17 +10,44 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'NEWSEEKERS',
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: Icon(Icons.dashboard),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  Text(
+                    'NEWS APP',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: Icon(Icons.person),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -33,10 +62,13 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
                   TrendingCard(
+                    ontap: () {
+                      Get.to(NewsDetailsPage());
+                    },
                     imageUrl:
                         "https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2024/09/11/news51680241104_1726014604.jpg",
                     title:
@@ -46,6 +78,9 @@ class HomeScreen extends StatelessWidget {
                     time: '2 Day ago',
                   ),
                   TrendingCard(
+                    ontap: () {
+                      Get.to(NewsDetailsPage());
+                    },
                     imageUrl:
                         "https://images.bhaskarassets.com/webp/thumb/512x0/web2images/521/2024/09/11/untitled-design-84_1726040627.jpg",
                     title:
@@ -55,6 +90,9 @@ class HomeScreen extends StatelessWidget {
                     time: '2 Day ago',
                   ),
                   TrendingCard(
+                    ontap: () {
+                      Get.to(NewsDetailsPage());
+                    },
                     imageUrl:
                         "https://images.bhaskarassets.com/webp/thumb/512x0/web2images/521/2024/09/11/2024-09-11t120628183_1726036592.jpg",
                     title:
