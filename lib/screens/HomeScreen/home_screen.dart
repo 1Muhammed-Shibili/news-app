@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Components/navigationBar.dart';
 import 'package:news_app/screens/HomeScreen/Widget/newstile.dart';
 import 'package:news_app/screens/HomeScreen/Widget/trendingCard.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class HomePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
-      floatingActionButton: MyBottomNav(),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(

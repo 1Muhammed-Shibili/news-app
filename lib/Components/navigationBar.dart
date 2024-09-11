@@ -7,8 +7,7 @@ class MyBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BottomNavigationController controller =
-        Get.put(BottomNavigationController());
+    BottomNavController controller = Get.put(BottomNavController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
