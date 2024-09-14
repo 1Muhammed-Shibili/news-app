@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:news_app/Controller/news_controller.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    NewsController newsController = Get.put(NewsController());
+    TextEditingController searchController = TextEditingController();
+
     return Container(
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -15,6 +20,7 @@ class SearchWidget extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
                 hintText: 'Search new ...',
                 fillColor: Theme.of(context).colorScheme.primaryContainer,
@@ -22,15 +28,35 @@ class SearchWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            child: Icon(Icons.search),
-          ),
+          Obx(
+            () => newsController.isNewsForULoading.value
+                ? Container(
+                    width: 50,
+                    height: 50,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      newsController.searchNews(searchController.text);
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: const Icon(Icons.search),
+                    ),
+                  ),
+          )
         ],
       ),
     );

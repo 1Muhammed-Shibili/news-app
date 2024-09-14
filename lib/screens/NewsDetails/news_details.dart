@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:news_app/Model/news_model.dart';
 
 class NewsDetailsPage extends StatelessWidget {
-  const NewsDetailsPage({super.key});
+  final NewsModel news;
+
+  const NewsDetailsPage({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +35,8 @@ class NewsDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 Container(
-                  height: 330,
+                  // height: 270,
                   decoration: BoxDecoration(
-                    color: Colors.red,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -43,7 +45,8 @@ class NewsDetailsPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(
-                            'https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2024/09/11/news51680241104_1726014604.jpg',
+                            news.urlToImage ??
+                                'https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2024/09/11/news51680241104_1726014604.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -53,14 +56,16 @@ class NewsDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'अब GPS से होगी टोल वसूली, नए नियम आज से:20 किमी तक फ्री, फिर जितनी यात्रा, उतना टोल; फास्टैग भी चलता रहेगा',
+                  news.title!,
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 Row(
                   children: [
-                    Text(
-                      '2 Day ago * tech',
-                      style: Theme.of(context).textTheme.labelSmall,
+                    Flexible(
+                      child: Text(
+                        "${news.author} * ${news.publishedAt}",
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                     ),
                   ],
                 ),
@@ -70,12 +75,21 @@ class NewsDetailsPage extends StatelessWidget {
                     CircleAvatar(
                       radius: 15,
                       backgroundColor: Colors.red,
+                      child: Text(
+                        news.author![0],
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      'Nitish Roy',
-                      style: TextStyle(
-                        fontSize: 18,
+                    Flexible(
+                      child: Text(
+                        news.author!,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color:
+                              Theme.of(context).colorScheme.secondaryContainer,
+                        ),
                       ),
                     )
                   ],
@@ -85,7 +99,7 @@ class NewsDetailsPage extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                        news.description ?? "No Description",
                         style: TextStyle(
                           fontSize: 18,
                           color:

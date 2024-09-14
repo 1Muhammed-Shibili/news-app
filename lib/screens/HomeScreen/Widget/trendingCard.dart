@@ -24,7 +24,6 @@ class TrendingCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(right: 10),
         padding: EdgeInsets.all(5),
-        //   height: 300,
         width: 280,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -78,9 +77,15 @@ class TrendingCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 15,
                   backgroundColor: Theme.of(context).colorScheme.primary,
+                  child: Text(
+                    author[0],
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 SizedBox(width: 10),
-                Text("$author")
+                Flexible(
+                  child: Text("$author", maxLines: 1),
+                )
               ],
             ),
             SizedBox(height: 10),
