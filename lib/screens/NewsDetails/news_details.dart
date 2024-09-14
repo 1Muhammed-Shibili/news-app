@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:news_app/Controller/news_controller.dart';
 import 'package:news_app/Model/news_model.dart';
 
 class NewsDetailsPage extends StatelessWidget {
@@ -9,6 +11,7 @@ class NewsDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NewsController newsController = Get.put(NewsController());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -35,7 +38,6 @@ class NewsDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 Container(
-                  // height: 270,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -93,6 +95,43 @@ class NewsDetailsPage extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+                SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Obx(
+                        () => newsController.isSpeaking.value
+                            ? IconButton(
+                                onPressed: () {
+                                  newsController.stop();
+                                },
+                                icon: Icon(Icons.stop),
+                                iconSize: 50,
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  newsController.speak(
+                                      news.description ?? "No Description");
+                                },
+                                icon: Icon(Icons.play_arrow_rounded),
+                                iconSize: 50,
+                              ),
+                      ),
+                      Expanded(
+                          child: Obx(
+                        () => Lottie.asset(
+                          'assets/animation/Animation - 1726295808947.json',
+                          height: 70,
+                          animate: newsController.isSpeaking.value,
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
                 Row(

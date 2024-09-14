@@ -217,7 +217,8 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    imageUrl: e.urlToImage!,
+                                    imageUrl: e.urlToImage ??
+                                        "https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2024/09/11/news51680241104_1726014604.jpg",
                                     title: e.title!,
                                     author: e.author ?? 'Unknown',
                                     tag: 'Trending no 1',

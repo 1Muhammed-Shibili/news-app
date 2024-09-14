@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:news_app/Model/news_model.dart';
@@ -19,6 +20,8 @@ class NewsController extends GetxController {
   RxBool isTeslaLoading = false.obs;
   RxBool isAppleLoading = false.obs;
   RxBool isBusiLoading = false.obs;
+  RxBool isSpeaking = false.obs;
+  FlutterTts flutterTts = FlutterTts();
 
   void onInit() async {
     super.onInit();
@@ -176,5 +179,19 @@ class NewsController extends GetxController {
       print(ex);
     }
     isNewsForULoading.value = false;
+  }
+
+  Future<void> speak(String text) async {
+    isSpeaking.value = true;
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(text);
+    isSpeaking.value = false;
+  }
+
+  void stop() async {
+    await flutterTts.stop();
+    isSpeaking.value = false;
   }
 }
